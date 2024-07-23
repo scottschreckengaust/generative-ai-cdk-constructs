@@ -9,7 +9,6 @@
     ".github/workflows/build.yml",
     ".github/workflows/code-generation.yml",
     ".github/workflows/commitlint.yml",
-    ".github/workflows/deploydocs.yml",
     ".github/workflows/github-merit-badger.yml",
     ".github/workflows/monthly-repo-metrics.yml",
     ".github/workflows/ort-toolkit.yml",
@@ -17,7 +16,6 @@
     ".github/workflows/release.yml",
     ".github/workflows/semgrep.yml",
     ".github/workflows/stale.yml",
-    ".github/workflows/testdeployment.yml",
     ".github/workflows/upgrade-main.yml",
     ".gitignore",
     ".mergify.yml",
@@ -25,7 +23,6 @@
     ".projen/files.json",
     ".projen/tasks.json",
     "LICENSE",
-    "src/common/props/AdapterProps.ts",
     "src/common/props/DockerLambdaCustomProps.ts",
     "src/common/props/LangchainProps.ts",
     "tsconfig.dev.json"

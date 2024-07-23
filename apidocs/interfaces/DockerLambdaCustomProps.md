@@ -1,610 +1,677 @@
+[**@cdklabs/generative-ai-cdk-constructs**](../README.md) • **Docs**
+
+***
+
 [@cdklabs/generative-ai-cdk-constructs](../README.md) / DockerLambdaCustomProps
 
 # Interface: DockerLambdaCustomProps
 
 DockerLambdaCustomProps
 
-## Table of contents
-
-### Properties
-
-- [adotInstrumentation](DockerLambdaCustomProps.md#adotinstrumentation)
-- [applicationLogLevel](DockerLambdaCustomProps.md#applicationloglevel)
-- [architecture](DockerLambdaCustomProps.md#architecture)
-- [code](DockerLambdaCustomProps.md#code)
-- [codeSigningConfig](DockerLambdaCustomProps.md#codesigningconfig)
-- [currentVersionOptions](DockerLambdaCustomProps.md#currentversionoptions)
-- [deadLetterQueue](DockerLambdaCustomProps.md#deadletterqueue)
-- [deadLetterQueueEnabled](DockerLambdaCustomProps.md#deadletterqueueenabled)
-- [deadLetterTopic](DockerLambdaCustomProps.md#deadlettertopic)
-- [environment](DockerLambdaCustomProps.md#environment)
-- [environmentEncryption](DockerLambdaCustomProps.md#environmentencryption)
-- [ephemeralStorageSize](DockerLambdaCustomProps.md#ephemeralstoragesize)
-- [events](DockerLambdaCustomProps.md#events)
-- [filesystem](DockerLambdaCustomProps.md#filesystem)
-- [initialPolicy](DockerLambdaCustomProps.md#initialpolicy)
-- [insightsVersion](DockerLambdaCustomProps.md#insightsversion)
-- [logFormat](DockerLambdaCustomProps.md#logformat)
-- [logGroup](DockerLambdaCustomProps.md#loggroup)
-- [maxEventAge](DockerLambdaCustomProps.md#maxeventage)
-- [memorySize](DockerLambdaCustomProps.md#memorysize)
-- [onFailure](DockerLambdaCustomProps.md#onfailure)
-- [onSuccess](DockerLambdaCustomProps.md#onsuccess)
-- [paramsAndSecrets](DockerLambdaCustomProps.md#paramsandsecrets)
-- [profiling](DockerLambdaCustomProps.md#profiling)
-- [profilingGroup](DockerLambdaCustomProps.md#profilinggroup)
-- [reservedConcurrentExecutions](DockerLambdaCustomProps.md#reservedconcurrentexecutions)
-- [retryAttempts](DockerLambdaCustomProps.md#retryattempts)
-- [runtimeManagementMode](DockerLambdaCustomProps.md#runtimemanagementmode)
-- [snapStart](DockerLambdaCustomProps.md#snapstart)
-- [systemLogLevel](DockerLambdaCustomProps.md#systemloglevel)
-- [timeout](DockerLambdaCustomProps.md#timeout)
-
 ## Properties
 
-### adotInstrumentation
+### adotInstrumentation?
 
-• `Optional` `Readonly` **adotInstrumentation**: `AdotInstrumentationConfig`
+> `readonly` `optional` **adotInstrumentation**: `AdotInstrumentationConfig`
 
 Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation.
 
-**`Default`**
+#### Default
 
 ```ts
 - No ADOT instrumentation
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### applicationLogLevel
+### applicationLogLevelV2?
 
-• `Optional` `Readonly` **applicationLogLevel**: `string`
+> `readonly` `optional` **applicationLogLevelV2**: `ApplicationLogLevel`
 
 Sets the application log level for the function.
 
-**`Default`**
+#### Default
 
 ```ts
-"INFO"
+ApplicationLogLevel.INFO
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### architecture
+### architecture?
 
-• `Optional` `Readonly` **architecture**: `Architecture`
+> `readonly` `optional` **architecture**: `Architecture`
 
 The system architectures compatible with this lambda function.
 
-**`Default`**
+#### Default
 
 ```ts
 Architecture.X86_64
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
 ### code
 
-• `Readonly` **code**: `DockerImageCode`
+> `readonly` **code**: `DockerImageCode`
 
 The source code of your Lambda function.
 You can point to a file in an
 Amazon Simple Storage Service (Amazon S3) bucket or specify your source
 code as inline text.
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### codeSigningConfig
+### codeSigningConfig?
 
-• `Optional` `Readonly` **codeSigningConfig**: `ICodeSigningConfig`
+> `readonly` `optional` **codeSigningConfig**: `ICodeSigningConfig`
 
 Code signing config associated with this function.
 
-**`Default`**
+#### Default
 
 ```ts
 - Not Sign the Code
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### currentVersionOptions
+### currentVersionOptions?
 
-• `Optional` `Readonly` **currentVersionOptions**: `VersionOptions`
+> `readonly` `optional` **currentVersionOptions**: `VersionOptions`
 
 Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method.
 
-**`Default`**
+#### Default
 
 - default options as described in `VersionOptions`
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### deadLetterQueue
+### deadLetterQueue?
 
-• `Optional` `Readonly` **deadLetterQueue**: `IQueue`
+> `readonly` `optional` **deadLetterQueue**: `IQueue`
 
 The SQS queue to use if DLQ is enabled.
 If SNS topic is desired, specify `deadLetterTopic` property instead.
 
-**`Default`**
+#### Default
 
 - SQS queue with 14 day retention period if `deadLetterQueueEnabled` is `true`
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### deadLetterQueueEnabled
+### deadLetterQueueEnabled?
 
-• `Optional` `Readonly` **deadLetterQueueEnabled**: `boolean`
+> `readonly` `optional` **deadLetterQueueEnabled**: `boolean`
 
 Enabled DLQ.
 If `deadLetterQueue` is undefined,
 an SQS queue with default options will be defined for your Function.
 
-**`Default`**
+#### Default
 
 - false unless `deadLetterQueue` is set, which implies DLQ is enabled.
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### deadLetterTopic
+### deadLetterTopic?
 
-• `Optional` `Readonly` **deadLetterTopic**: `ITopic`
+> `readonly` `optional` **deadLetterTopic**: `ITopic`
 
 The SNS topic to use as a DLQ.
 Note that if `deadLetterQueueEnabled` is set to `true`, an SQS queue will be created
 rather than an SNS topic. Using an SNS topic as a DLQ requires this property to be set explicitly.
 
-**`Default`**
+#### Default
 
 ```ts
 - no SNS topic
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### environment
+### environment?
 
-• `Optional` `Readonly` **environment**: `Record`\<`string`, `string`\>
+> `readonly` `optional` **environment**: `Record`\<`string`, `string`\>
 
 Key-value pairs that Lambda caches and makes available for your Lambda functions.
 Use environment variables to apply configuration changes, such
 as test and production environment configurations, without changing your
 Lambda function source code.
 
-**`Default`**
+#### Default
 
 ```ts
 - No environment variables.
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### environmentEncryption
+### environmentEncryption?
 
-• `Optional` `Readonly` **environmentEncryption**: `IKey`
+> `readonly` `optional` **environmentEncryption**: `IKey`
 
 The AWS KMS key that's used to encrypt your function's environment variables.
 
-**`Default`**
+#### Default
 
 ```ts
 - AWS Lambda creates and uses an AWS managed customer master key (CMK).
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### ephemeralStorageSize
+### ephemeralStorageSize?
 
-• `Optional` `Readonly` **ephemeralStorageSize**: `Size`
+> `readonly` `optional` **ephemeralStorageSize**: `Size`
 
 The size of the function’s /tmp directory in MiB.
 
-**`Default`**
+#### Default
 
 ```ts
 512 MiB
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### events
+### events?
 
-• `Optional` `Readonly` **events**: `IEventSource`[]
+> `readonly` `optional` **events**: `IEventSource`[]
 
 Event sources for this function.
 You can also add event sources using `addEventSource`.
 
-**`Default`**
+#### Default
 
 ```ts
 - No event sources.
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### filesystem
+### filesystem?
 
-• `Optional` `Readonly` **filesystem**: `FileSystem`
+> `readonly` `optional` **filesystem**: `FileSystem`
 
 The filesystem configuration for the lambda function.
 
-**`Default`**
+#### Default
 
 ```ts
 - will not mount any filesystem
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### initialPolicy
+### initialPolicy?
 
-• `Optional` `Readonly` **initialPolicy**: `PolicyStatement`[]
+> `readonly` `optional` **initialPolicy**: `PolicyStatement`[]
 
 Initial policy statements to add to the created Lambda Role.
 You can call `addToRolePolicy` to the created lambda to add statements post creation.
 
-**`Default`**
+#### Default
 
 ```ts
 - No policy statements are added to the created Lambda role.
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### insightsVersion
+### insightsVersion?
 
-• `Optional` `Readonly` **insightsVersion**: `LambdaInsightsVersion`
+> `readonly` `optional` **insightsVersion**: `LambdaInsightsVersion`
 
 Specify the version of CloudWatch Lambda insights to use for monitoring.
 
-**`Default`**
+#### Default
 
 ```ts
 - No Lambda Insights
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### logFormat
+### ipv6AllowedForDualStack?
 
-• `Optional` `Readonly` **logFormat**: `string`
+> `readonly` `optional` **ipv6AllowedForDualStack**: `boolean`
 
-Sets the logFormat for the function.
+Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets.
+Only used if 'vpc' is supplied.
 
-**`Default`**
+#### Default
 
 ```ts
-"Text"
+false
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### logGroup
+### logGroup?
 
-• `Optional` `Readonly` **logGroup**: `ILogGroup`
+> `readonly` `optional` **logGroup**: `ILogGroup`
 
 The log group the function sends logs to.
-By default, Lambda functions send logs to an automatically created default log group named /aws/lambda/<function name>.
+By default, Lambda functions send logs to an automatically created default log group named /aws/lambda/\<function name\>.
 However you cannot change the properties of this auto-created log group using the AWS CDK, e.g. you cannot set a different log retention.
 
 Use the `logGroup` property to create a fully customizable LogGroup ahead of time, and instruct the Lambda function to send logs to it.
 
-**`Default`**
+Providing a user-controlled log group was rolled out to commercial regions on 2023-11-16.
+If you are deploying to another type of region, please check regional availability first.
+
+#### Default
 
 `/aws/lambda/${this.functionName}` - default log group created by Lambda
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### maxEventAge
+### logRetention?
 
-• `Optional` `Readonly` **maxEventAge**: `Duration`
+> `readonly` `optional` **logRetention**: `RetentionDays`
+
+The number of days log events are kept in CloudWatch Logs.
+When updating
+this property, unsetting it doesn't remove the log retention policy. To
+remove the retention policy, set the value to `INFINITE`.
+
+This is a legacy API and we strongly recommend you move away from it if you can.
+Instead create a fully customizable log group with `logs.LogGroup` and use the `logGroup` property
+to instruct the Lambda function to send logs to it.
+Migrating from `logRetention` to `logGroup` will cause the name of the log group to change.
+Users and code and referencing the name verbatim will have to adjust.
+
+In AWS CDK code, you can access the log group name directly from the LogGroup construct:
+```ts
+import * as logs from 'aws-cdk-lib/aws-logs';
+
+declare const myLogGroup: logs.LogGroup;
+myLogGroup.logGroupName;
+```
+
+#### Default
+
+```ts
+logs.RetentionDays.INFINITE
+```
+
+#### Stability
+
+stable
+
+***
+
+### logRetentionRetryOptions?
+
+> `readonly` `optional` **logRetentionRetryOptions**: `LogRetentionRetryOptions`
+
+When log retention is specified, a custom resource attempts to create the CloudWatch log group.
+These options control the retry policy when interacting with CloudWatch APIs.
+
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
+
+#### Default
+
+```ts
+- Default AWS SDK retry options.
+```
+
+#### Stability
+
+stable
+
+***
+
+### logRetentionRole?
+
+> `readonly` `optional` **logRetentionRole**: `IRole`
+
+The IAM role for the Lambda function associated with the custom resource that sets the retention policy.
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
+
+#### Default
+
+```ts
+- A new role is created.
+```
+
+#### Stability
+
+stable
+
+***
+
+### loggingFormat?
+
+> `readonly` `optional` **loggingFormat**: `LoggingFormat`
+
+Sets the loggingFormat for the function.
+
+#### Default
+
+```ts
+LoggingFormat.TEXT
+```
+
+#### Stability
+
+stable
+
+***
+
+### maxEventAge?
+
+> `readonly` `optional` **maxEventAge**: `Duration`
 
 The maximum age of a request that Lambda sends to a function for processing.
 Minimum: 60 seconds
 Maximum: 6 hours
 
-**`Default`**
+#### Default
 
 ```ts
 Duration.hours(6)
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### memorySize
+### memorySize?
 
-• `Optional` `Readonly` **memorySize**: `number`
+> `readonly` `optional` **memorySize**: `number`
 
 The amount of memory, in MB, that is allocated to your Lambda function.
 Lambda uses this value to proportionally allocate the amount of CPU
 power. For more information, see Resource Model in the AWS Lambda
 Developer Guide.
 
-**`Default`**
+#### Default
 
 ```ts
 128
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### onFailure
+### onFailure?
 
-• `Optional` `Readonly` **onFailure**: `IDestination`
+> `readonly` `optional` **onFailure**: `IDestination`
 
 The destination for failed invocations.
 
-**`Default`**
+#### Default
 
 ```ts
 - no destination
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### onSuccess
+### onSuccess?
 
-• `Optional` `Readonly` **onSuccess**: `IDestination`
+> `readonly` `optional` **onSuccess**: `IDestination`
 
 The destination for successful invocations.
 
-**`Default`**
+#### Default
 
 ```ts
 - no destination
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### paramsAndSecrets
+### paramsAndSecrets?
 
-• `Optional` `Readonly` **paramsAndSecrets**: `ParamsAndSecretsLayerVersion`
+> `readonly` `optional` **paramsAndSecrets**: `ParamsAndSecretsLayerVersion`
 
 Specify the configuration of Parameters and Secrets Extension.
 
-**`Default`**
+#### Default
 
 ```ts
 - No Parameters and Secrets Extension
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### profiling
+### profiling?
 
-• `Optional` `Readonly` **profiling**: `boolean`
+> `readonly` `optional` **profiling**: `boolean`
 
 Enable profiling.
 
-**`Default`**
+#### Default
 
 ```ts
 - No profiling.
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### profilingGroup
+### profilingGroup?
 
-• `Optional` `Readonly` **profilingGroup**: `IProfilingGroup`
+> `readonly` `optional` **profilingGroup**: `IProfilingGroup`
 
 Profiling Group.
 
-**`Default`**
+#### Default
 
 - A new profiling group will be created if `profiling` is set.
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### reservedConcurrentExecutions
+### reservedConcurrentExecutions?
 
-• `Optional` `Readonly` **reservedConcurrentExecutions**: `number`
+> `readonly` `optional` **reservedConcurrentExecutions**: `number`
 
 The maximum of concurrent executions you want to reserve for the function.
 
-**`Default`**
+#### Default
 
 ```ts
 - No specific limit - account limit.
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### retryAttempts
+### retryAttempts?
 
-• `Optional` `Readonly` **retryAttempts**: `number`
+> `readonly` `optional` **retryAttempts**: `number`
 
 The maximum number of times to retry when the function returns an error.
 Minimum: 0
 Maximum: 2
 
-**`Default`**
+#### Default
 
 ```ts
 2
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### runtimeManagementMode
+### runtimeManagementMode?
 
-• `Optional` `Readonly` **runtimeManagementMode**: `RuntimeManagementMode`
+> `readonly` `optional` **runtimeManagementMode**: `RuntimeManagementMode`
 
 Sets the runtime management configuration for a function's version.
 
-**`Default`**
+#### Default
 
 ```ts
 Auto
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### snapStart
+### snapStart?
 
-• `Optional` `Readonly` **snapStart**: `SnapStartConf`
+> `readonly` `optional` **snapStart**: `SnapStartConf`
 
 Enable SnapStart for Lambda Function.
 SnapStart is currently supported only for Java 11, 17 runtime
 
-**`Default`**
+#### Default
 
 ```ts
 - No snapstart
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### systemLogLevel
+### systemLogLevelV2?
 
-• `Optional` `Readonly` **systemLogLevel**: `string`
+> `readonly` `optional` **systemLogLevelV2**: `SystemLogLevel`
 
 Sets the system log level for the function.
 
-**`Default`**
+#### Default
 
 ```ts
-"INFO"
+SystemLogLevel.INFO
 ```
 
-**`Stability`**
+#### Stability
 
 stable
 
-___
+***
 
-### timeout
+### timeout?
 
-• `Optional` `Readonly` **timeout**: `Duration`
+> `readonly` `optional` **timeout**: `Duration`
 
 The function execution time (in seconds) after which Lambda terminates the function.
 Because the execution time affects cost, set this value
 based on the function's expected execution time.
 
-**`Default`**
+#### Default
 
 ```ts
 Duration.seconds(3)
 ```
 
-**`Stability`**
+#### Stability
 
 stable

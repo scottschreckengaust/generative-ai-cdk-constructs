@@ -13,7 +13,6 @@
 import { ProjenStruct, Struct } from '@mrgrain/jsii-struct-builder';
 import { JsonPatch, awscdk } from 'projen';
 import { DependabotScheduleInterval, VersioningStrategy } from 'projen/lib/github';
-import { JobPermission } from 'projen/lib/github/workflows-model';
 import { NpmAccess } from 'projen/lib/javascript';
 import { buildUpgradeMainPRCustomJob } from './projenrc/github-jobs';
 import {
@@ -31,7 +30,12 @@ import {
 const GITHUB_USER = 'awslabs';
 const PUBLICATION_NAMESPACE = 'cdklabs';
 const PROJECT_NAME = 'generative-ai-cdk-constructs';
-const CDK_VERSION: string = '2.122.0';
+const CDK_VERSION: string = '2.149.0';
+
+function camelCaseIt(input: string): string {
+  // Hypens and dashes to spaces and then CamelCase...
+  return input.replace(/-/g, ' ').replace(/_/g, ' ').replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, _) { if (+match === 0) return ''; return match.toUpperCase(); });
+}
 
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services - Prototyping and Cloud Engineering',
@@ -39,10 +43,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorOrganization: true,
   description: 'AWS Generative AI CDK Constructs is a library for well-architected generative AI patterns.',
   cdkVersion: CDK_VERSION,
-  projenVersion: '~0.78.8',
+  projenVersion: '~0.84.5',
   constructsVersion: '10.3.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.3.0',
+  jsiiVersion: '~5.4.0',
   name: '@' + PUBLICATION_NAMESPACE + '/' + PROJECT_NAME,
   projenrcTs: true,
   repositoryUrl: 'https://github.com/' + GITHUB_USER + '/' + PROJECT_NAME,
@@ -59,6 +63,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'typedoc',
     'typedoc-plugin-markdown',
     'aws-sdk-mock',
+    '@aws-cdk/assert',
   ],
   deps: [
     'cdk-nag',
@@ -78,6 +83,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: PUBLICATION_NAMESPACE+'.'+PROJECT_NAME,
     module: (PUBLICATION_NAMESPACE.replace(/-/g, '_'))+'.'+(PROJECT_NAME.replace(/-/g, '_')), // PEP 8, convert hypens
     // twineRegistryUrl: '${{ secrets.TWINE_REGISTRY_URL }}',
+  },
+
+  publishToNuget: {
+    dotNetNamespace: camelCaseIt(PUBLICATION_NAMESPACE)+'.'+camelCaseIt(PROJECT_NAME),
+    packageId: camelCaseIt(PUBLICATION_NAMESPACE)+'.'+camelCaseIt(PROJECT_NAME),
   },
 
   codeCov: true,
@@ -110,9 +120,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '!.ort.yml',
     '.idea',
     '.vscode',
-    'website/build',
-    'website/node_modules',
-    'website/.docusaurus',
   ],
   stability: 'experimental',
   sampleCode: false,
@@ -141,6 +148,8 @@ project.github?.actions.set('actions/checkout@v4', 'actions/checkout@b4ffde65f46
 project.github?.actions.set('actions/download-artifact@v3', 'actions/download-artifact@b4aefff88e83a2676a730654e1ce3dce61880379'); // https://github.com/projen/projen/issues/3529
 project.github?.actions.set('actions/download-artifact@v4', 'actions/download-artifact@b4aefff88e83a2676a730654e1ce3dce61880379');
 project.github?.actions.set('actions/github-script@v6', 'actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410');
+project.github?.actions.set('actions/setup-dotnet@v3', 'actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3');
+project.github?.actions.set('actions/setup-dotnet@v4', 'actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3');
 project.github?.actions.set('actions/setup-node@v3', 'actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8'); // https://github.com/projen/projen/issues/3529
 project.github?.actions.set('actions/setup-node@v4', 'actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8');
 project.github?.actions.set('actions/setup-python@v4', 'actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d'); // https://github.com/projen/projen/issues/3529
@@ -149,6 +158,7 @@ project.github?.actions.set('actions/stale@v4', 'actions/stale@a20b814fb01b71def
 project.github?.actions.set('actions/upload-artifact@v3', 'actions/upload-artifact@18bf333cd2249fbbbdb605fd9d9ed57efd7adf34'); // https://github.com/projen/projen/issues/3529
 project.github?.actions.set('actions/upload-artifact@v4', 'actions/upload-artifact@18bf333cd2249fbbbdb605fd9d9ed57efd7adf34');
 project.github?.actions.set('amannn/action-semantic-pull-request@v5.0.2', 'amannn/action-semantic-pull-request@01d5fd8a8ebb9aafe902c40c53f0f4744f7381eb');
+project.github?.actions.set('amannn/action-semantic-pull-request@v5.4.0', 'amannn/action-semantic-pull-request@e9fabac35e210fea40ca5b14c0da95a099eff26f');
 project.github?.actions.set('aws-github-ops/github-merit-badger@main', 'aws-github-ops/github-merit-badger@70d1c47f7051d6e324d4ddc48d676ba61ef69a3e');
 project.github?.actions.set('codecov/codecov-action@v3', 'codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed'); // https://github.com/projen/projen/issues/3529
 project.github?.actions.set('codecov/codecov-action@v4', 'codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed');
@@ -159,72 +169,8 @@ project.github?.actions.set('oss-review-toolkit/ort-ci-github-action@v1', 'oss-r
 project.github?.actions.set('peter-evans/create-issue-from-file@v4', 'peter-evans/create-issue-from-file@433e51abf769039ee20ba1293a088ca19d573b7f');
 project.github?.actions.set('peter-evans/create-pull-request@v4', 'peter-evans/create-pull-request@38e0b6e68b4c852a5500a94740f0e535e0d7ba54');
 project.github?.actions.set('peter-evans/create-pull-request@v5', 'peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38');
+project.github?.actions.set('peter-evans/create-pull-request@v6', 'peter-evans/create-pull-request@b1ddad2c994a25fbc81a28b3ec0e368bb2021c50');
 project.github?.actions.set('aws-actions/configure-aws-credentials@v4.0.2', 'aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502');
-// docusaurus add specific overrides
-
-project.github?.actions.set('peaceiris/actions-gh-pages@v3', 'peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847');
-project;
-const deployDocsWorkflow = project.github?.addWorkflow('DeployDocs');
-if (deployDocsWorkflow) {
-  deployDocsWorkflow.on({
-    push: {
-      branches: ['main'],
-    },
-  });
-
-  project.github?.actions.set('peaceiris/actions-gh-pages@v3', 'peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847');
-
-  deployDocsWorkflow.addJobs({
-    deploy: {
-      permissions: {
-        contents: JobPermission.WRITE,
-      },
-      runsOn: ['ubuntu-latest'],
-      steps: [
-        { uses: 'actions/checkout@v4' },
-        {
-          uses: 'actions/setup-node@v4',
-          with: { 'node-version': '18' },
-        },
-        { run: 'cd website; yarn install --frozen-lockfile;' },
-        {
-          uses: 'peaceiris/actions-gh-pages@v3',
-          with: {
-            github_token: '${{ secrets.GITHUB_TOKEN }}',
-            publish_dir: './website/build',
-            user_name: 'github-actions[bot]',
-            user_email: '41898282+github-actions[bot]@users.noreply.github.com',
-          },
-        },
-      ],
-    },
-  });
-}
-
-const testDeploymentWorkflow = project.github?.addWorkflow('TestDeployment');
-
-if (testDeploymentWorkflow) {
-  testDeploymentWorkflow.on({
-    pullRequest: {
-      branches: ['main'],
-    },
-  });
-
-  testDeploymentWorkflow.addJobs({
-    test_deploy: {
-      permissions: {
-        contents: JobPermission.WRITE,
-      },
-      runsOn: ['ubuntu-latest'],
-      steps: [
-        { uses: 'actions/checkout@v4', with: { 'fetch-depth': '0' } },
-        { uses: 'actions/setup-node@v4', with: { 'node-version': '18', 'cache': 'yarn' } },
-        { run: 'cd website; yarn install --frozen-lockfile' },
-        { run: 'cd website; pwd; npx docusaurus build', name: 'Test build website' },
-      ],
-    },
-  });
-}
 
 // We don't want to package certain things
 project.npmignore?.addPatterns(
@@ -244,7 +190,6 @@ project.npmignore?.addPatterns(
   'tsconfig.dev.json',
   'yarn.lock',
   '/apidocs/',
-  'website/',
 );
 
 // Add License header automatically
@@ -262,11 +207,6 @@ new ProjenStruct(project, { name: 'LangchainProps', filePath: 'src/common/props/
   .mixin(Struct.fromFqn('aws-cdk-lib.aws_lambda.LayerVersionProps'))
   .withoutDeprecated()
   .omit('code', 'compatibleRuntimes', 'compatibleArchitectures');
-
-new ProjenStruct(project, { name: 'AdapterProps', filePath: 'src/common/props/AdapterProps.ts' })
-  .mixin(Struct.fromFqn('aws-cdk-lib.aws_lambda.LayerVersionProps'))
-  .withoutDeprecated()
-  .omit('code');
 
 new ProjenStruct(project, { name: 'DockerLambdaCustomProps', filePath: 'src/common/props/DockerLambdaCustomProps.ts' })
   .mixin(Struct.fromFqn('aws-cdk-lib.aws_lambda.DockerImageFunctionProps'))
@@ -317,6 +257,7 @@ project.github?.addDependabot({
       patterns: ['*'],
     },
   },
+  labels: ['auto-approve'],
 });
 
 project.synth();

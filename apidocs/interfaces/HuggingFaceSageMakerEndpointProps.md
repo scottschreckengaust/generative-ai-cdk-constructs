@@ -1,82 +1,65 @@
+[**@cdklabs/generative-ai-cdk-constructs**](../README.md) • **Docs**
+
+***
+
 [@cdklabs/generative-ai-cdk-constructs](../README.md) / HuggingFaceSageMakerEndpointProps
 
 # Interface: HuggingFaceSageMakerEndpointProps
-
-## Table of contents
-
-### Properties
-
-- [container](HuggingFaceSageMakerEndpointProps.md#container)
-- [enableOperationalMetric](HuggingFaceSageMakerEndpointProps.md#enableoperationalmetric)
-- [endpointName](HuggingFaceSageMakerEndpointProps.md#endpointname)
-- [environment](HuggingFaceSageMakerEndpointProps.md#environment)
-- [instanceCount](HuggingFaceSageMakerEndpointProps.md#instancecount)
-- [instanceType](HuggingFaceSageMakerEndpointProps.md#instancetype)
-- [modelId](HuggingFaceSageMakerEndpointProps.md#modelid)
-- [role](HuggingFaceSageMakerEndpointProps.md#role)
-- [startupHealthCheckTimeoutInSeconds](HuggingFaceSageMakerEndpointProps.md#startuphealthchecktimeoutinseconds)
-- [vpcConfig](HuggingFaceSageMakerEndpointProps.md#vpcconfig)
 
 ## Properties
 
 ### container
 
-• `Readonly` **container**: [`ContainerImage`](../classes/ContainerImage.md)
+> `readonly` **container**: [`ContainerImage`](../classes/ContainerImage.md)
 
-___
+***
 
-### enableOperationalMetric
+### endpointName?
 
-• `Optional` `Readonly` **enableOperationalMetric**: `boolean`
+> `readonly` `optional` **endpointName**: `string`
 
-___
+***
 
-### endpointName
+### environment?
 
-• `Optional` `Readonly` **endpointName**: `string`
+> `readonly` `optional` **environment**: `object`
 
-___
+#### Index Signature
 
-### environment
+ \[`key`: `string`\]: `string`
 
-• `Optional` `Readonly` **environment**: `Object`
+***
 
-#### Index signature
+### instanceCount?
 
-▪ [key: `string`]: `string`
+> `readonly` `optional` **instanceCount**: `number`
 
-___
-
-### instanceCount
-
-• `Optional` `Readonly` **instanceCount**: `number`
-
-___
+***
 
 ### instanceType
 
-• `Readonly` **instanceType**: [`SageMakerInstanceType`](../classes/SageMakerInstanceType.md)
+> `readonly` **instanceType**: [`SageMakerInstanceType`](../classes/SageMakerInstanceType.md)
 
-___
+***
 
 ### modelId
 
-• `Readonly` **modelId**: `string`
+> `readonly` **modelId**: `string`
 
-___
+***
 
-### role
+### role?
 
-• `Optional` `Readonly` **role**: `Role`
+> `readonly` `optional` **role**: `Role`
 
-___
+***
 
-### startupHealthCheckTimeoutInSeconds
+### startupHealthCheckTimeoutInSeconds?
 
-• `Optional` `Readonly` **startupHealthCheckTimeoutInSeconds**: `number`
+> `readonly` `optional` **startupHealthCheckTimeoutInSeconds**: `number`
 
-___
+***
 
-### vpcConfig
+### vpcConfig?
 
-• `Optional` `Readonly` **vpcConfig**: `VpcConfigProperty`
+> `readonly` `optional` **vpcConfig**: `VpcConfigProperty`

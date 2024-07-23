@@ -100,19 +100,6 @@ export interface ContentGenerationAppSyncLambdaProps {
    * @default - true
    */
   readonly observability?: boolean;
-
-  /**
-   * Optional.CDK constructs provided collects anonymous operational
-   * metrics to help AWS improve the quality and features of the
-   * constructs. Data collection is subject to the AWS Privacy Policy
-   * (https://aws.amazon.com/privacy/). To opt out of this feature,
-   * simply disable it by setting the construct property
-   * "enableOperationalMetric" to false for each construct used.
-   *
-   * @default - true
-   */
-  readonly enableOperationalMetric?: boolean;
-
   /**
    * Optional. Allows a user to configure
    * Lambda provisioned concurrency for consistent performance
@@ -126,7 +113,7 @@ export interface ContentGenerationAppSyncLambdaProps {
 }
 
 /**
- * @summary The ContentGenerationAppSyncLambda class.
+ * The ContentGenerationAppSyncLambda class.
  */
 export class ContentGenerationAppSyncLambda extends BaseClass {
   /**
@@ -161,19 +148,18 @@ export class ContentGenerationAppSyncLambda extends BaseClass {
   public readonly cgLambdaFunction: lambda.DockerImageFunction;
 
   /**
-   * @summary Constructs a new instance of the ContentGenerationAppSyncLambda class.
+   * Constructs a new instance of the ContentGenerationAppSyncLambda class.
    * @param {cdk.App} scope - represents the scope for all the resources.
    * @param {string} id - this is a a scope-unique id.
    * @param {ContentGenerationAppSyncLambdaProps} props - user provided props for the construct.
    * @since 0.0.0
-   * @access public
+   * @public
    */
   constructor(scope: Construct, id: string, props: ContentGenerationAppSyncLambdaProps) {
     super(scope, id);
 
     const baseProps: BaseClassProps={
       stage: props.stage,
-      enableOperationalMetric: props.enableOperationalMetric,
       constructName: ConstructName.AWSCONTENTGENAPPSYNCLAMBDA,
       constructId: id,
       observability: props.observability,

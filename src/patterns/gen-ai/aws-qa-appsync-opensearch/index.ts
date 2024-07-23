@@ -129,19 +129,6 @@ export interface QaAppsyncOpensearchProps {
    * @default - true
    */
   readonly observability?: boolean;
-
-  /**
-   * Optional.CDK constructs provided collects anonymous operational
-   * metrics to help AWS improve the quality and features of the
-   * constructs. Data collection is subject to the AWS Privacy Policy
-   * (https://aws.amazon.com/privacy/). To opt out of this feature,
-   * simply disable it by setting the construct property
-   * "enableOperationalMetric" to false for each construct used.
-   *
-   * @default - true
-   */
-  readonly enableOperationalMetric?: boolean;
-
   /**
    * Optional. Allows a user to configure
    * Lambda provisioned concurrency for consistent performance
@@ -158,24 +145,9 @@ export interface QaAppsyncOpensearchProps {
 }
 
 /**
- * @summary The QaAppsyncOpensearch class.
+ * The QaAppsyncOpensearch class.
  */
 export class QaAppsyncOpensearch extends BaseClass {
-  /**
-   * Construct warning
-   */
-  public static readonly CONSTRUCT_SCHEMA_UPDATE_WARNING=`
-  Attention QaAppsyncOpensearch users, an update has been made to 
-  the GraphQL schema.To ensure continued functionality, please review 
-  and update your GraphQL mutations and subscriptions to align with 
-  the new schema.This schema update enables enhanced capabilities 
-  and optimizations,so adopting the changes is recommended. 
-  Please refer to the construct documentation for details 
-  on the schema changes and examples of updated GraphQL statements.
-  Reach out to the support team if you need assistance 
-  updating your integration codebase.  
-  `;
-
   /**
    * Returns the instance of ec2.IVpc used by the construct
    */
@@ -209,19 +181,18 @@ export class QaAppsyncOpensearch extends BaseClass {
 
 
   /**
-   * @summary Constructs a new instance of the RagAppsyncStepfnOpensearch class.
+   * Constructs a new instance of the RagAppsyncStepfnOpensearch class.
    * @param {cdk.App} scope - represents the scope for all the resources.
    * @param {string} id - this is a a scope-unique id.
    * @param {QaAppsyncOpensearchProps} props - user provided props for the construct.
    * @since 0.0.0
-   * @access public
+   * @public
    */
   constructor(scope: Construct, id: string, props: QaAppsyncOpensearchProps) {
     super(scope, id);
 
     const baseProps: BaseClassProps={
       stage: props.stage,
-      enableOperationalMetric: props.enableOperationalMetric,
       constructName: ConstructName.AWSQAAPPSYNCOPENSEARCH,
       constructId: id,
       observability: props.observability,

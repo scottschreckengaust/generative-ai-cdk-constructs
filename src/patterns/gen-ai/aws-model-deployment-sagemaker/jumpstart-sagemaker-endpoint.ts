@@ -32,12 +32,11 @@ export interface JumpStartSageMakerEndpointProps {
   readonly environment?: { [key: string]: string };
   readonly startupHealthCheckTimeoutInSeconds?: number;
   readonly acceptEula?: boolean;
-  readonly enableOperationalMetric?: boolean;
 
 }
 
 /**
- * @summary The JumpStartSageMakerEndpoint class.
+ * The JumpStartSageMakerEndpoint class.
  */
 export class JumpStartSageMakerEndpoint extends SageMakerEndpointBase {
   public readonly grantPrincipal: iam.IPrincipal;
@@ -61,7 +60,6 @@ export class JumpStartSageMakerEndpoint extends SageMakerEndpointBase {
     super(scope, id);
 
     const baseProps: BaseClassProps={
-      enableOperationalMetric: props.enableOperationalMetric,
       constructName: ConstructName.JUMPSTARTSAGEMAKERENDPOINT,
       constructId: id,
     };

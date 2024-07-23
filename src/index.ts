@@ -16,16 +16,15 @@ export * from './patterns/gen-ai/aws-langchain-common-layer';
 export * from './patterns/gen-ai/aws-qa-appsync-opensearch';
 export * from './patterns/gen-ai/aws-model-deployment-sagemaker';
 export * from './patterns/gen-ai/aws-contentgen-appsync-lambda';
+export * from './patterns/gen-ai/aws-web-crawler';
 
 export * as bedrock from './cdk-lib/bedrock';
 export * as amazonaurora from './cdk-lib/amazonaurora';
 export * as pinecone from './cdk-lib/pinecone';
-export * as redisenterprisecloud from './cdk-lib/redisenterprisecloud';
 export * as opensearchserverless from './cdk-lib/opensearchserverless';
 export * as opensearch_vectorindex from './cdk-lib/opensearch-vectorindex';
 export { version } from './common/helpers/utils';
 export * from './common/props/DockerLambdaCustomProps';
 export * from './common/props/LangchainProps';
-export * from './common/props/AdapterProps';
 export * from './common/base-class/base-class';
 export * from './common/base-class/construct-name-enum';

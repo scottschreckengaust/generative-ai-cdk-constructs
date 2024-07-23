@@ -1,76 +1,51 @@
+[**@cdklabs/generative-ai-cdk-constructs**](../README.md) • **Docs**
+
+***
+
 [@cdklabs/generative-ai-cdk-constructs](../README.md) / BaseClassProps
 
 # Interface: BaseClassProps
-
-## Table of contents
-
-### Properties
-
-- [constructId](BaseClassProps.md#constructid)
-- [constructName](BaseClassProps.md#constructname)
-- [enableOperationalMetric](BaseClassProps.md#enableoperationalmetric)
-- [observability](BaseClassProps.md#observability)
-- [stage](BaseClassProps.md#stage)
 
 ## Properties
 
 ### constructId
 
-• `Readonly` **constructId**: `string`
+> `readonly` **constructId**: `string`
 
 construct id.
 
-___
+***
 
 ### constructName
 
-• `Readonly` **constructName**: [`ConstructName`](../enums/ConstructName.md)
+> `readonly` **constructName**: [`ConstructName`](../enumerations/ConstructName.md)
 
 name of the construct.
 
-___
+***
 
-### enableOperationalMetric
+### observability?
 
-• `Optional` `Readonly` **enableOperationalMetric**: `boolean`
-
-Optional.CDK constructs provided collects anonymous operational
-metrics to help AWS improve the quality and features of the
-constructs. Data collection is subject to the AWS Privacy Policy
-(https://aws.amazon.com/privacy/). To opt out of this feature,
-simply disable it by setting the construct property
-"enableOperationalMetric" to false for each construct used.
-
-**`Default`**
-
-```ts
-- true
-```
-
-___
-
-### observability
-
-• `Optional` `Readonly` **observability**: `boolean`
+> `readonly` `optional` **observability**: `boolean`
 
 Enable observability. Warning: associated cost with the services
 used. Best practice to enable by default.
 
-**`Default`**
+#### Default
 
 ```ts
 - true
 ```
 
-___
+***
 
-### stage
+### stage?
 
-• `Optional` `Readonly` **stage**: `string`
+> `readonly` `optional` **stage**: `string`
 
 Value will be appended to resources name.
 
-**`Default`**
+#### Default
 
 ```ts
 - _dev

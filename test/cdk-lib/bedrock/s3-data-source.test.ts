@@ -14,6 +14,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import { AwsSolutionsChecks } from 'cdk-nag';
 import * as bedrock from '../../../src/cdk-lib/bedrock';
 
 // mock lambda.Code.fromDockerBuild()
@@ -36,6 +37,7 @@ describe('S3 Data Source', () => {
 
   beforeEach(() => {
     const app = new cdk.App();
+    cdk.Aspects.of(app).add(new AwsSolutionsChecks());
     stack = new cdk.Stack(app, 'TestStack');
     bucket = new s3.Bucket(stack, 'TestBucket');
     kb = new bedrock.KnowledgeBase(stack, 'KB', {
@@ -53,16 +55,43 @@ describe('S3 Data Source', () => {
       overlapPercentage: 20,
     });
 
-    Template.fromStack(stack).hasResourceProperties('Custom::Bedrock-DataSource', {
-      vectorIngestionConfiguration: {
-        chunkingConfiguration: {
-          chunkingStrategy: 'FIXED_SIZE',
-          fixedSizeChunkingConfiguration: {
-            maxTokens: 1024,
-            overlapPercentage: 20,
-          },
-        },
-      },
+    Template.fromStack(stack).hasResourceProperties('AWS::Bedrock::DataSource', {
+
+      VectorIngestionConfiguration:
+       {
+         ChunkingConfiguration: {
+           ChunkingStrategy: 'FIXED_SIZE',
+           FixedSizeChunkingConfiguration: {
+             MaxTokens: 1024,
+             OverlapPercentage: 20,
+           },
+         },
+       },
+    });
+  });
+
+  test('Default chunking', () => {
+    new bedrock.S3DataSource(stack, 'TestDataSource', {
+      bucket,
+      knowledgeBase: kb,
+      dataSourceName: 'TestDataSource',
+      chunkingStrategy: bedrock.ChunkingStrategy.DEFAULT,
+      maxTokens: 1024,
+      overlapPercentage: 20,
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::Bedrock::DataSource', {
+
+      VectorIngestionConfiguration:
+       {
+         ChunkingConfiguration: {
+           ChunkingStrategy: 'FIXED_SIZE',
+           FixedSizeChunkingConfiguration: {
+             MaxTokens: 300,
+             OverlapPercentage: 20,
+           },
+         },
+       },
     });
   });
 
@@ -74,12 +103,12 @@ describe('S3 Data Source', () => {
       chunkingStrategy: bedrock.ChunkingStrategy.NONE,
     });
 
-    Template.fromStack(stack).hasResourceProperties('Custom::Bedrock-DataSource', {
-      vectorIngestionConfiguration: {
-        chunkingConfiguration: {
-          chunkingStrategy: 'NONE',
-        },
-      },
+    Template.fromStack(stack).hasResourceProperties('AWS::Bedrock::DataSource', {
+      VectorIngestionConfiguration:
+       {
+         ChunkingConfiguration:
+        { ChunkingStrategy: 'NONE' },
+       },
     });
   });
 

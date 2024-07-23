@@ -14,7 +14,6 @@ import * as path from 'path';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import { Layer } from '../../../common/helpers/python-lambda-layer-helper';
-import { AdapterProps } from '../../../common/props/AdapterProps';
 import { LangchainProps } from '../../../common/props/LangchainProps';
 
 /**
@@ -52,7 +51,7 @@ export interface LangchainLayerProps extends LangchainProps {
 }
 
 /**
-   * @summary The LangchainCommonDepsLayer class.
+   * The LangchainCommonDepsLayer class.
    */
 export class LangchainCommonDepsLayer extends Construct {
   /**
@@ -61,12 +60,12 @@ export class LangchainCommonDepsLayer extends Construct {
   public readonly layer: lambda.LayerVersion;
 
   /**
-     * @summary This construct creates a lambda layer loaded with relevant libraries to run genai applications. Libraries include boto3, botocore, requests, requests-aws4auth, langchain, opensearch-py and openai.
+     * This construct creates a lambda layer loaded with relevant libraries to run genai applications. Libraries include boto3, botocore, requests, requests-aws4auth, langchain, opensearch-py and openai.
      * @param {cdk.App} scope - represents the scope for all the resources.
      * @param {string} id - this is a a scope-unique id.
      * @param {LangchainLayerProps} props - user provided props for the construct.
      * @since 0.0.0
-     * @access public
+     * @public
      */
   constructor(scope: Construct, id: string, props: LangchainLayerProps) {
     super(scope, id);
@@ -78,43 +77,6 @@ export class LangchainCommonDepsLayer extends Construct {
     });
 
     this.layer = layer.layer;
-  }
-}
-
-/**
-   * @summary LangchainCommonLayer allows developers to instantiate a llm client adapter on bedrock, sagemaker or openai following best practise.
-   *
-   * @example
-   * import boto3
-   * from genai_core.adapters.registry import registry
-   *
-   * adapter = registry.get_adapter(f"{provider}.{model_id}")
-   * bedrock_client = boto3.client('bedrock-runtime')
-   */
-export class LangchainCommonLayer extends Construct {
-  /**
-   * Returns the instance of lambda.LayerVersion created by the construct
-   */
-  public readonly layer: lambda.LayerVersion;
-
-  /**
-     * @summary This construct allows developers to instantiate a llm client adapter on bedrock, sagemaker or openai following best practise.
-     * @param {cdk.App} scope - represents the scope for all the resources.
-     * @param {string} id - this is a a scope-unique id.
-     * @param {AdapterProps} props - user provided props for the construct.
-     * @since 0.0.0
-     * @access public
-     */
-  constructor(scope: Construct, id: string, props: AdapterProps) {
-    super(scope, id);
-
-    const layer = new lambda.LayerVersion(this, 'Model Adapter Layer', {
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../../../layers/langchain-common-layer')),
-      description: 'Utilities to instantiate a llm client adapter. Adapters include bedrock, sagemaker, and openai',
-      ...props,
-    });
-
-    this.layer = layer;
   }
 }
 

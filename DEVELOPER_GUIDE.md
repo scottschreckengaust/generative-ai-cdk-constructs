@@ -16,7 +16,7 @@ Default output format [None]: json
 ```
 
 - [Node](https://nodejs.org/en) >= v20.9.0
-- [AWS CDK](https://github.com/aws/aws-cdk/releases/tag/v2.122.0) >= 2.122.0
+- [AWS CDK](https://github.com/aws/aws-cdk/releases/tag/v2.141.0) >= 2.141.0
 - [Python](https://www.python.org/downloads/) >=3.9
 - [Projen](https://github.com/projen/projen) >= 0.78.8
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/cli/install/) >= 1.22.19
@@ -133,7 +133,7 @@ Navigate to the [Generative AI CDK Construct Repository] (https://github.com/aws
 |--resources (If you need additional resources packaged with your library)
 |--projenrc (Folder containing utilities for the main projenrc file)
 |--src/ (Source .ts files)
-    |--common/ (Common code reused accross constructs)
+    |--common/ (Common code reused across constructs)
         |--helpers
             |-- README.md (Documentation for helper functions)
             |-- *-helper.ts (Helper source file)
@@ -145,7 +145,7 @@ Navigate to the [Generative AI CDK Construct Repository] (https://github.com/aws
                 |--architecture.png (Construct diagram)
     |--index.ts (Constructs need to be exported from this index.ts file)
 |--test/
-    |--common/ (Common code reused accross constructs)
+    |--common/ (Common code reused across constructs)
         |--helpers
             |-- *-helper.test.ts (Helper source file)
     |--patterns/

@@ -153,19 +153,6 @@ export interface RagAppsyncStepfnOpensearchProps {
    * and settings instead of the existing
    */
   readonly customFileTransformerDockerLambdaProps?: DockerLambdaCustomProps | undefined;
-
-  /**
-   * Optional.CDK constructs provided collects anonymous operational
-   * metrics to help AWS improve the quality and features of the
-   * constructs. Data collection is subject to the AWS Privacy Policy
-   * (https://aws.amazon.com/privacy/). To opt out of this feature,
-   * simply disable it by setting the construct property
-   * "enableOperationalMetric" to false for each construct used.
-   *
-   * @default - true
-   */
-  readonly enableOperationalMetric?: boolean;
-
   /**
    * Enable observability. Warning: associated cost with the services
    * used. Best practice to enable by default.
@@ -176,7 +163,7 @@ export interface RagAppsyncStepfnOpensearchProps {
 }
 
 /**
-   * @summary The RagAppsyncStepfnOpensearch class.
+   * The RagAppsyncStepfnOpensearch class.
    */
 
 export class RagAppsyncStepfnOpensearch extends BaseClass {
@@ -235,12 +222,12 @@ export class RagAppsyncStepfnOpensearch extends BaseClass {
 
 
   /**
-     * @summary Constructs a new instance of the RagAppsyncStepfnOpensearch class.
+     * Constructs a new instance of the RagAppsyncStepfnOpensearch class.
      * @param {cdk.App} scope - represents the scope for all the resources.
      * @param {string} id - this is a scope-unique id.
      * @param {RagAppsyncStepfnOpensearchProps} props - user provided props for the construct.
      * @since 0.0.0
-     * @access public
+     * @public
      */
   constructor(scope: Construct, id: string, props: RagAppsyncStepfnOpensearchProps) {
     super(scope, id);
@@ -248,7 +235,6 @@ export class RagAppsyncStepfnOpensearch extends BaseClass {
 
     const baseProps: BaseClassProps={
       stage: props.stage,
-      enableOperationalMetric: props.enableOperationalMetric,
       constructName: ConstructName.AWSRAGAPPSYNCSTEPFNOPENSEARCH,
       constructId: id,
       observability: props.observability,
